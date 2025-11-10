@@ -16,6 +16,14 @@ class List{
       head = nullptr;
       size = 0;
     }
+    ~List() {
+        Node<T>* current = head;
+        while (current) {
+            Node<T>* temp = current;
+            current = current->next;
+            delete temp;
+        }
+    }
 
     void push_front(T val) {
         Node<T>* new_node = new Node<T>{val, head};
