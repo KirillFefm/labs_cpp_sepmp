@@ -263,7 +263,7 @@ int main() {
 	std::cout << "Determinant of transposed: " << det200t << std::endl;
 	std::cout << "Difference: " << std::abs(det200 - det200t) << std::endl << std::endl;
 	
-	std::cout << "=== Bonus: Gaussian elimination test ===" << std::endl;
+	std::cout << "=== Gaussian elimination test ===" << std::endl;
 	std::mt19937 gen(std::chrono::steady_clock::now().time_since_epoch().count());
 	std::uniform_real_distribution<double> dis(-10.0, 10.0);
 	
