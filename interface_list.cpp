@@ -57,12 +57,12 @@ public:
 		return *this;
 	}
 
-	subforwardlist(subforwardlist&& other) noexcept {
+	subforwardlist(subforwardlist&& other) {
 		begin = other.begin;
 		other.begin = nullptr;
 	}
 
-	subforwardlist& operator=(subforwardlist&& other) noexcept {
+	subforwardlist& operator=(subforwardlist&& other)  {
 		if(this == &other) return *this;
 		while(begin){
 			Node* temp = begin;

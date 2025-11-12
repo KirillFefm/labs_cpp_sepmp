@@ -38,7 +38,7 @@ public:
           return *this;
      }
 
-     subvector(subvector&& other) noexcept {
+     subvector(subvector&& other) {
           mas = other.mas;
           capacity = other.capacity;
           top = other.top;
@@ -47,7 +47,7 @@ public:
           other.top = 0;
      }
 
-     subvector& operator=(subvector&& other) noexcept {
+     subvector& operator=(subvector&& other) {
           if(this == &other) return *this;
           delete[] mas;
           mas = other.mas;
