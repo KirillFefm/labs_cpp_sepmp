@@ -13,7 +13,7 @@ public:
 	subforwardlist(){
 		begin = nullptr;
 	}
-
+// Можно вынести в функцию clear() логику деструктора, раз она используется в нескольких различных функциях
 	~subforwardlist(){
 		while(begin){
 			Node* temp = begin;
@@ -117,6 +117,9 @@ public:
 		delete temp;
 		return value;
 	}
+
+
+// Здесь и далее неявно используется код, который ищет указатель на ноду по индексу, это можно было вынести в отдельный метод и переиспользовать везде
 
 	void push_where(unsigned int where, const T& data){
 		if(where == 0){
