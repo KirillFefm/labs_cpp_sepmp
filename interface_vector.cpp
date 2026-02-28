@@ -27,6 +27,7 @@ public:
      }
 
      subvector& operator=(const subvector& other){
+          // стандартный комментарий про copy&swap из беседы
           if(this == &other) return *this;
           delete[] mas;
           capacity = other.capacity;
@@ -48,6 +49,7 @@ public:
      }
 
      subvector& operator=(subvector&& other) {
+          // Тут правильнее не удалять себя (это долго), а отдать свое состояние внутрь other, так как это move операция, то такое поведение корректно
           if(this == &other) return *this;
           delete[] mas;
           mas = other.mas;
@@ -92,6 +94,7 @@ public:
      }
 
      void shrink_to_fit(){
+          // это же просто resize(top)
           if(top == capacity) return;
           T* new_mas = new T[top];
           for(unsigned int i = 0; i < top; i++){

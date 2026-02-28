@@ -11,6 +11,7 @@ class Matrix {
 
 public:
 	Matrix(unsigned rows, unsigned cols, T value = 0) : _rows(rows), _cols(cols) {
+		// это логичнее загнать в конструктор вектора по одинаковому значению для заданого размера
 		for(unsigned i = 0; i < rows * cols; i++){
 			data.push_back(value);
 		}
@@ -19,7 +20,7 @@ public:
 	static Matrix Identity(unsigned n){
 		Matrix m(n, n, 0);
 		for(unsigned i = 0; i < n; i++){
-			m(i, i) = 1;
+			m(i, i) = 1;  // 1 -- это тип int, а не Т, надо использовать явное приведение
 		}
 		return m;
 	}
@@ -68,6 +69,7 @@ public:
 		return data[row * _cols + col];
 	}
 
+// Тут один метод можно определить через другой
 	Matrix& transpose(){
 		Matrix temp(_cols, _rows);
 		for(unsigned i = 0; i < _rows; i++){
@@ -109,7 +111,9 @@ public:
 		}
 	}
 
+// А вот это было бы неплохо сделать оператором умножения для двух матриц
 	static Matrix multiply(const Matrix& A, const Matrix& B){
+		// нет проверки на соотвествие размеров
 		Matrix result(A._rows, B._cols, 0);
 		for(unsigned i = 0; i < A._rows; i++){
 			for(unsigned j = 0; j < B._cols; j++){
@@ -123,12 +127,13 @@ public:
 
 	subvector<T> operator*(const subvector<T>& vec) const {
 		subvector<T> result;
+		// Нет проверки на соотвествие размеров
 		for(unsigned i = 0; i < _rows; i++){
 			T sum = 0;
 			for(unsigned j = 0; j < _cols; j++){
 				sum += (*this)(i, j) * vec[j];
 			}
-			result.push_back(sum);
+			result.push_back(sum);		// плохая идея без использования resize перед использованием. можно попасть на много перевыделений памяти. так что сначала нужно выделить достуточное количество памяти
 		}
 		return result;
 	}
@@ -161,6 +166,7 @@ T determinant(const Matrix<T>& mat){
 		
 		for(unsigned j = i + 1; j < n; j++){
 			T factor = m(j, i) / m(i, i);
+			// так вроде бы для этого был написан отдельный метод addRow выше?
 			for(unsigned k = i; k < n; k++){
 				m(j, k) -= factor * m(i, k);
 			}
@@ -197,8 +203,11 @@ subvector<T> gaussianElimination(Matrix<T> A, subvector<T> b){
 			b[j] -= factor * b[i];
 		}
 	}
+
 	
 	subvector<T> x;
+	// про push_back без resize смотри выше
+	// а вообще это должен быть консруктор от рамера и значения, которым будет заполнен вектор
 	for(unsigned i = 0; i < n; i++){
 		x.push_back(0);
 	}
@@ -223,6 +232,7 @@ T vectorNorm(const subvector<T>& vec){
 	return std::sqrt(sum);
 }
 
+// а это оператор вычитания двух векторов, и надо было так и сделать
 template<typename T>
 subvector<T> vectorSubtract(const subvector<T>& a, const subvector<T>& b){
 	subvector<T> result;
