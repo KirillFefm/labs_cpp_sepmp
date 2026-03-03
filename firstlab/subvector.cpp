@@ -1,4 +1,5 @@
 #include <iostream>
+#include <subvector.hpp>
 
 struct subvector {
 	int* mas;
