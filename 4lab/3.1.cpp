@@ -1,8 +1,8 @@
-#include <array>
 #include <tuple>
 #include <iostream>
 #include <type_traits>
 #include <utility>
+#include <array>
 
 template <typename ArraysTuple, std::size_t... ValueIndices, std::size_t... ArrayIndices>
 constexpr auto make_item_impl(const ArraysTuple& arrays,

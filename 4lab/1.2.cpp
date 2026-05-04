@@ -1,6 +1,6 @@
-#include <iostream>
 #include <deque>
 #include <string>
+#include <iostream>
 
 template <typename T, typename Container = std::deque<T>>
 class Stack {

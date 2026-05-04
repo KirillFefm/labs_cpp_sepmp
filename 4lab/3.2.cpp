@@ -1,6 +1,6 @@
-#include <array>
 #include <cstddef>
 #include <iostream>
+#include <array>
 
 template <std::size_t N, std::size_t Index>
 struct LinearRecurrence {
